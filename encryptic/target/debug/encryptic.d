@@ -1,0 +1,1 @@
+C:\Users\n0o0b\OneDrive\Desktop\the\ good\ stuf\ plz\ dont\ open\Rust\Ecrypter\encryptic\target\debug\encryptic.exe: C:\Users\n0o0b\OneDrive\Desktop\the\ good\ stuf\ plz\ dont\ open\Rust\Ecrypter\encryptic\src\main.rs

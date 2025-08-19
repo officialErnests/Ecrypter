@@ -5,6 +5,7 @@ use std::fs;
 use serde_json::{Result, Value};
 //export comments
 /*
+as it turns out idk how to get coprimes XDD
 Tf u mean linking failed kek
 Why do you have to delet the previos export :skull:
 */

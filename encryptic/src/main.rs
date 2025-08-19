@@ -1,5 +1,8 @@
 use std::io;
 use std::io::prelude::*;
+use std::fs::File;
+use serde::{Deserialize, Serialize};
+use serde_json::Result;
 //export comments
 /*
 Tf u mean linking failed kek
@@ -17,7 +20,7 @@ fn main() {
     ///wahahahhahaahahahah why json
     let json_file_path = Path::new("primes.json");
     let prime_file = File::open(json_file_path);
-    let prime_json: serde_json::Value = serde_json::from_str(prime_file).expect("JSON was not well-formatted");
+    let deserialized_primes: Value = serde_json::from_str(prime_file)?;
     //WHy do you have to fight compiler so mutch XDD
     //Why is the snake case absolete kek
     //Whyy the variables so weeeeeird man i love cpp better kek

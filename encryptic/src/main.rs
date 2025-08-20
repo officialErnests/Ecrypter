@@ -37,11 +37,14 @@ fn main() {
     println!("copy : {coprime},{coprime_2},{public_key}\n");
     loop {
         println!("0 - encode mesage, 1 - decode message");
+        input = "".to_string();
         io::stdin().read_line(&mut input).unwrap();
         input = input.trim().to_string();
+        // println!("{input}");
         let temp: i32 = input.parse().unwrap();
         if temp == 0 {
             println!("encode message (numbers kek):");
+            input = "".to_string();
             io::stdin().read_line(&mut input).unwrap();
             input = input.trim().to_string();
             let encrypted_message = encrypt(input.parse().unwrap(), coprime, public_key);
@@ -49,6 +52,7 @@ fn main() {
         }
         else {
             println!("decode message (numbers kek):");
+            input = "".to_string();
             io::stdin().read_line(&mut input).unwrap();
             input = input.trim().to_string();
             let decoded_message = decrypt(input.parse().unwrap(), coprime_2, public_key);
@@ -114,6 +118,7 @@ fn generate_private_info() -> Vec<u64> {
 }
 
 fn encrypt(message: u64, coprimew: u64, publick_key: u64) -> u64 {
+    println!("{message},{coprimew},{publick_key}");
     return mod_exp(message, coprimew, publick_key);
 } 
 

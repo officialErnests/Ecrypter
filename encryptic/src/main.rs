@@ -1,19 +1,60 @@
 use primes::{PrimeSet, PrimeSetBasics, Sieve};
 use rand::prelude::*;
 use mod_exp::mod_exp;
+use std::io;
 fn main() {
     //Gets random number 
     //Some woodoo magic by the primes library?? (idk what are they called kek)
-    
-    let funny = generate_private_info();
-    let coprime = funny[0];
-    let coprime_2 = funny[1];
-    let public_key = funny[2];
+    println!("Paste keys (Leave empty to generate new):");
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    let mut coprime = 0;
+    let mut coprime_2 = 0;
+    let mut public_key = 0;
+    input = input.trim().to_string();
+    if input.len() < 3{
+        let funny = generate_private_info();
+        coprime = funny[0];
+        coprime_2 = funny[1];
+        public_key = funny[2];
+    } else {
+        let funny: Vec<&str> = input.split(",").collect();
+        let mut x: i32 = 0;
+        println!("{:?}", funny);
+        for i in funny{
+            match x {
+                0 => {coprime = i.parse().unwrap()},
+                1 => {coprime_2 = i.parse().unwrap()},
+                2 => {
+                    public_key = i.parse().unwrap()
+                },
+                _ => println!("Well idk what to do with {x}")
+            }
+            x += 1;
+        }
+    }
     println!("private key: {coprime}\ncoprime 2: {coprime_2}\npublic key: {public_key}");
-    let encrypted_message = encrypt(696969, coprime,public_key);
-    println!("{:?}", encrypted_message);
-    let decoded_message = decrypt(encrypted_message, coprime_2, public_key);
-    println!("{:?}", decoded_message);
+    println!("copy : {coprime},{coprime_2},{public_key}\n");
+    loop {
+        println!("0 - encode mesage, 1 - decode message");
+        io::stdin().read_line(&mut input).unwrap();
+        input = input.trim().to_string();
+        let temp: i32 = input.parse().unwrap();
+        if temp == 0 {
+            println!("encode message (numbers kek):");
+            io::stdin().read_line(&mut input).unwrap();
+            input = input.trim().to_string();
+            let encrypted_message = encrypt(input.parse().unwrap(), coprime, public_key);
+            println!("encrypted : {:?}", encrypted_message);
+        }
+        else {
+            println!("decode message (numbers kek):");
+            io::stdin().read_line(&mut input).unwrap();
+            input = input.trim().to_string();
+            let decoded_message = decrypt(input.parse().unwrap(), coprime_2, public_key);
+            println!("decrypted : {:?}", decoded_message);
+        }
+    }
 
     // println!("{}", p_set.list()[p_set.len() - 1]);
     // loop {
@@ -72,8 +113,8 @@ fn generate_private_info() -> Vec<u64> {
     return return_vec;
 }
 
-fn encrypt(message: u64, coprime: u64, publick_key: u64) -> u64 {
-    return mod_exp(message, coprime, publick_key);
+fn encrypt(message: u64, coprimew: u64, publick_key: u64) -> u64 {
+    return mod_exp(message, coprimew, publick_key);
 } 
 
 fn decrypt(encoded_message: u64, coprime2: u64, publick_key: u64) -> u64 {
